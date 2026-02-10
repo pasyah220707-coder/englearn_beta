@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
 });
 
 // Jalankan server
-app.listen(PORT, () => {
-    console.log(`Server Englearn berjalan di http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server Englearn berjalan di http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
