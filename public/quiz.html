@@ -8,18 +8,48 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="main-navbar">
+        <a href="/" class="nav-brand">EngLearn</a>
+        <div class="nav-right">
+            <a href="/leaderboard.html" class="nav-link">🏆 Leaderboard</a>
+            <div id="auth-container"></div>
+        </div>
+    </nav>
+
     <div class="app-container">
         <header class="app-header">
-            <a href="/" class="back-link">&larr; Back to Home</a>
             <h1>EngLearn Quiz</h1>
             <p>Test your grammar skills!</p>
         </header>
         
         <main id="quiz-container">
-            <!-- Soal akan dimuat di sini oleh JavaScript -->
-            <p class="loading">Loading questions, please wait...</p>
+            <!-- 1. Layar Pilih Kesulitan -->
+            <div id="difficulty-selection" style="display: none; text-align: center;">
+                <h2>Select Difficulty</h2>
+                <p>Choose your challenge level:</p>
+                <div class="difficulty-grid">
+                    <button class="diff-btn easy" onclick="startQuiz('easy')">Easy (60s)</button>
+                    <button class="diff-btn normal" onclick="startQuiz('normal')">Normal (30s)</button>
+                    <button class="diff-btn hard" onclick="startQuiz('hard')">Hard (10s)</button>
+                </div>
+            </div>
+
+            <!-- 2. Layar Kuis Aktif -->
+            <div id="quiz-active" style="display: none;">
+                <div class="quiz-info-bar">
+                    <div id="timer-display">Time: <span id="time-left">0</span>s</div>
+                    <div id="score-display">Score: <span id="current-score">0</span></div>
+                </div>
+                <div id="question-area"></div>
+            </div>
+
+            <!-- Loading -->
+            <p id="loading-text" class="loading">Loading questions...</p>
         </main>
 
         <footer class="app-footer">
@@ -27,6 +57,10 @@
         </footer>
     </div>
 
+    <script src="js/supabase-client.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/badges.js"></script>
 </body>
 </html>

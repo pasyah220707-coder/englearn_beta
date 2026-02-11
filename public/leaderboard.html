@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Results - EngLearn</title>
+    <title>Leaderboard - EngLearn</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Load Supabase Library -->
+    <!-- Load Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -23,22 +21,20 @@
 
     <div class="app-container">
         <header class="app-header">
-            <h1 id="quiz-title">Quiz Results</h1>
+            <h1>Top Scorers</h1>
+            <p>Hall of Fame para juara EngLearn!</p>
         </header>
         
-        <main id="results-container">
-            <!-- Hasil akan dimuat di sini oleh JavaScript -->
-            <p class="loading">Loading results...</p>
+        <main class="leaderboard-container">
+            <div id="leaderboard-content">
+                <p class="loading">Loading scores...</p>
+            </div>
         </main>
-
-        <footer class="app-footer">
-            <p>&copy; 2024 EngLearn. All rights reserved.</p>
-        </footer>
     </div>
 
     <script src="js/supabase-client.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/results.js"></script>
+    <script src="js/leaderboard.js"></script>
 </body>
 </html>

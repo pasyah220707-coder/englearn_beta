@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hapus data dari session storage setelah diambil agar tidak muncul lagi jika halaman di-refresh
     sessionStorage.removeItem('quizResult');
 
-    const { score, total, results, title } = JSON.parse(resultData);
+    const { score, total, results, title, difficulty } = JSON.parse(resultData);
 
     quizTitleElement.textContent = `Results: ${title}`;
     resultsContainer.innerHTML = ''; // Hapus loading text
@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tampilkan skor
     const scoreElement = document.createElement('div');
     scoreElement.className = 'score-summary';
-    scoreElement.innerHTML = `<h2>Your Score: ${score} / ${total}</h2>`;
+    const diffLabel = difficulty ? difficulty.charAt(0).toUpperCase() + difficulty.slice(1) : 'Standard';
+    scoreElement.innerHTML = `<h2>Score: ${score} / ${total}</h2><p>Difficulty: <strong>${diffLabel}</strong></p>`;
     resultsContainer.appendChild(scoreElement);
 
     // Tampilkan ulasan setiap pertanyaan
