@@ -4,10 +4,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Daftar topik yang tersedia (Hardcoded berdasarkan materi yang ada)
     // Struktur ini memudahkan penambahan materi Kelas 10 atau 12 nantinya
     const topics = [
+        { id: 'descriptive-text', name: 'Descriptive Text (Kelas 10)' },
+        { id: 'recount-text', name: 'Recount Text (Kelas 10)' },
+        { id: 'narrative-text', name: 'Narrative Text (Kelas 10)' },
         { id: 'simple-present', name: 'Simple Present Tense (Kelas 11)' },
         { id: 'present-continuous', name: 'Present Continuous Tense (Kelas 11)' },
         { id: 'simple-past', name: 'Simple Past Tense (Kelas 11)' },
-        { id: 'past-continuous', name: 'Past Continuous Tense (Kelas 11)' }
+        { id: 'past-continuous', name: 'Past Continuous Tense (Kelas 11)' },
+        { id: 'present-perfect', name: 'Present Perfect Tense (Kelas 11)' },
+        { id: 'application-letter', name: 'Application Letter (Kelas 12)' },
+        { id: 'news-item', name: 'News Item Text (Kelas 12)' },
+        { id: 'conditional-sentences', name: 'Conditional Sentences (Kelas 12)' },
+        { id: 'irregular-verbs', name: 'Irregular Verbs (Umum)' },
+        { id: 'to-be', name: 'To Be (Umum)' }
     ];
 
     // 1. Buat UI Selector Topik (Dropdown)

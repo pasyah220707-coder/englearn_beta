@@ -5,8 +5,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Cek Status Login Saat Ini
     updateAuthUI();
+    
+    // 2. Jalankan Statistik Footer
+    initFooterStats();
 
-    // 2. Handle Register
+    // 3. Handle Register
     if (registerForm) {
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // 3. Handle Login
+    // 4. Handle Login
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -158,4 +161,58 @@ async function updateAuthUI() {
             if (window.toggleTheme) window.toggleTheme();
         });
     }
+}
+
+// Fungsi Statistik Footer dengan Animasi
+async function initFooterStats() {
+    const quizCountEl = document.getElementById('stat-quiz-count');
+    const badgeCountEl = document.getElementById('stat-badge-count');
+    const userCountEl = document.getElementById('stat-user-count');
+
+    // Hanya jalankan jika elemen footer ada di halaman
+    if (!quizCountEl || !badgeCountEl) return;
+
+    try {
+        // Ambil jumlah data dari Supabase (count: 'exact', head: true artinya hanya ambil jumlahnya saja, hemat bandwidth)
+        const { count: quizTotal } = await window.supabaseClient
+            .from('quiz_attempts')
+            .select('*', { count: 'exact', head: true });
+
+        const { count: badgeTotal } = await window.supabaseClient
+            .from('user_badges')
+            .select('*', { count: 'exact', head: true });
+
+        // Hitung User Aktif (Unique User ID dari tabel quiz_attempts)
+        // Kita gunakan ini karena tidak bisa akses tabel auth.users secara langsung dari client demi keamanan
+        const { data: attempts } = await window.supabaseClient
+            .from('quiz_attempts')
+            .select('user_id');
+        const userTotal = attempts ? new Set(attempts.map(a => a.user_id)).size : 0;
+
+        // Jalankan animasi
+        animateValue(quizCountEl, 0, quizTotal || 0, 2000);
+        animateValue(badgeCountEl, 0, badgeTotal || 0, 2000);
+        if (userCountEl) animateValue(userCountEl, 0, userTotal || 0, 2000);
+
+    } catch (error) {
+        console.error("Error fetching stats:", error);
+        quizCountEl.textContent = "-";
+        badgeCountEl.textContent = "-";
+        if (userCountEl) userCountEl.textContent = "-";
+    }
+}
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        // Efek ease-out (cepat di awal, lambat di akhir)
+        const value = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = value.toLocaleString(); // Tambah koma pemisah ribuan
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
 }

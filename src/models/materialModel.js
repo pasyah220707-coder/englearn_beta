@@ -72,6 +72,138 @@ const materials = {
             "Negative: They were not playing football.",
             "Interrogative: Were you sleeping at 9 PM?"
         ]
+    },
+    "descriptive-text": {
+        title: "Descriptive Text",
+        definition: "Descriptive text adalah teks yang menjelaskan atau mendeskripsikan orang, binatang, atau benda tertentu secara spesifik (Specific Participant). Tujuannya adalah untuk menggambarkan ciri-ciri khusus dari objek tersebut.",
+        usage: [
+            "Mendeskripsikan tempat wisata atau bangunan bersejarah.",
+            "Memberikan informasi rinci tentang ciri fisik atau kualitas suatu objek.",
+            "Menggunakan Simple Present Tense dan banyak Adjectives (Kata Sifat)."
+        ],
+        structure: [
+            { part: "Identification", desc: "Pendahuluan yang memperkenalkan objek yang akan dideskripsikan (nama, lokasi)." },
+            { part: "Description", desc: "Penjelasan rinci mengenai ciri-ciri objek (fisik, kualitas, bagian-bagiannya)." }
+        ],
+        examples: [
+            "Pink Beach is a beautiful beach located in Komodo Island.",
+            "The sand is pink because it is a mixture of white sand and red coral fragments.",
+            "It has amazing underwater life with hundreds of coral species."
+        ]
+    },
+    "present-perfect": {
+        title: "Present Perfect Tense",
+        definition: "Present Perfect Tense digunakan untuk menyatakan kejadian yang terjadi di masa lampau namun waktunya tidak spesifik, atau kejadian yang dimulai di masa lampau dan masih berlanjut/berdampak sampai sekarang.",
+        usage: [
+            "Menyatakan pengalaman hidup (Life Experiences) tanpa menyebut waktu spesifik.",
+            "Menyatakan kejadian yang baru saja selesai (Just).",
+            "Menyatakan tindakan yang dimulai di masa lalu dan masih berlanjut (Since/For)."
+        ],
+        formula: {
+            positive: "S + have/has + V3 + O",
+            negative: "S + have/has + not + V3 + O",
+            interrogative: "Have/Has + S + V3 + O?"
+        },
+        examples: [
+            "Positive: I have visited Bali twice.",
+            "Negative: She has not (haven't) finished her homework yet.",
+            "Interrogative: Have you ever eaten Sushi?"
+        ]
+    },
+    "application-letter": {
+        title: "Application Letter",
+        definition: "Surat lamaran kerja (Cover Letter) adalah surat formal yang dikirimkan bersama CV untuk melamar pekerjaan. Tujuannya untuk memperkenalkan diri dan meyakinkan perekrut bahwa pelamar cocok untuk posisi tersebut.",
+        usage: [
+            "Melamar pekerjaan di perusahaan atau instansi.",
+            "Menjelaskan kualifikasi dan pengalaman kerja secara ringkas.",
+            "Menunjukkan antusiasme dan profesionalisme pelamar."
+        ],
+        structure: [
+            { part: "Salutation", desc: "Salam pembuka formal (e.g., Dear Hiring Manager)." },
+            { part: "Body Paragraphs", desc: "Menjelaskan posisi yang dilamar, kualifikasi, dan pengalaman relevan." },
+            { part: "Closing & Signature", desc: "Harapan wawancara, salam penutup, dan tanda tangan." }
+        ],
+        examples: [
+            "I am writing to apply for the Graphic Designer position.",
+            "I have experience in using Adobe Photoshop and Illustrator.",
+            "I look forward to hearing from you. Sincerely, Budi."
+        ]
+    },
+    "recount-text": {
+        title: "Recount Text",
+        definition: "Recount text adalah teks yang menceritakan kembali kejadian atau pengalaman di masa lampau secara berurutan. Tujuannya adalah untuk memberikan informasi atau menghibur pembaca.",
+        usage: [
+            "Menceritakan pengalaman liburan atau pribadi (Personal Recount).",
+            "Menceritakan biografi tokoh (Biographical Recount).",
+            "Menceritakan sejarah (Historical Recount)."
+        ],
+        structure: [
+            { part: "Orientation", desc: "Pengenalan tentang siapa, di mana, dan kapan peristiwa terjadi." },
+            { part: "Events", desc: "Rangkaian peristiwa yang terjadi secara berurutan (chronological order)." },
+            { part: "Reorientation", desc: "Kesimpulan atau komentar pribadi penulis tentang peristiwa tersebut (opsional)." }
+        ],
+        examples: [
+            "Last holiday, I went to Bali with my family.",
+            "First, we visited Kuta Beach. Then, we had lunch.",
+            "It was a wonderful experience."
+        ]
+    },
+    "narrative-text": {
+        title: "Narrative Text",
+        definition: "Narrative text adalah teks imajinatif atau faktual yang bertujuan untuk menghibur pembaca dengan sebuah cerita yang memiliki komplikasi atau masalah dan resolusinya.",
+        usage: [
+            "Dongeng (Fairy tales), Legenda (Legends), Mitos (Myths).",
+            "Cerita pendek (Short stories).",
+            "Fabel (Fables - cerita hewan)."
+        ],
+        structure: [
+            { part: "Orientation", desc: "Pendahuluan tokoh, waktu, dan tempat." },
+            { part: "Complication", desc: "Munculnya masalah atau konflik dalam cerita." },
+            { part: "Resolution", desc: "Penyelesaian masalah (akhir bahagia atau sedih)." }
+        ],
+        examples: [
+            "Once upon a time, there lived a poor widow and her son, Malin Kundang.",
+            "One day, Malin Kundang sailed away to become rich.",
+            "In the end, he turned into a stone because he disobeyed his mother."
+        ]
+    },
+    "news-item": {
+        title: "News Item Text",
+        definition: "News Item text adalah teks yang memberikan informasi kepada pembaca tentang peristiwa yang bernilai berita (newsworthy) yang terjadi sehari-hari.",
+        usage: [
+            "Berita koran atau majalah.",
+            "Berita online.",
+            "Siaran berita televisi/radio."
+        ],
+        structure: [
+            { part: "Main Event", desc: "Ringkasan berita atau peristiwa utama (Headline)." },
+            { part: "Background Events", desc: "Latar belakang peristiwa (siapa, di mana, kapan, bagaimana)." },
+            { part: "Sources", desc: "Sumber informasi (komentar saksi, ahli, atau pihak terkait)." }
+        ],
+        examples: [
+            "Jakarta - Heavy rain caused floods in several areas of Jakarta yesterday.",
+            "According to the BMKG, the rain will continue until tomorrow.",
+            "Residents are advised to stay alert."
+        ]
+    },
+    "conditional-sentences": {
+        title: "Conditional Sentences",
+        definition: "Conditional Sentences (Kalimat Pengandaian) digunakan untuk menyatakan situasi yang mungkin terjadi (real) atau tidak nyata (unreal/imaginary) jika syarat tertentu terpenuhi.",
+        usage: [
+            "Type 1: Situasi yang mungkin terjadi di masa depan (Future Possibility).",
+            "Type 2: Situasi yang tidak nyata saat ini (Present Unreal).",
+            "Type 3: Situasi yang tidak nyata di masa lalu (Past Unreal)."
+        ],
+        structure: [
+            { part: "Type 1 (Future)", desc: "If + Simple Present, Simple Future (Will)" },
+            { part: "Type 2 (Present Unreal)", desc: "If + Simple Past, Past Future (Would)" },
+            { part: "Type 3 (Past Unreal)", desc: "If + Past Perfect, Past Future Perfect (Would have)" }
+        ],
+        examples: [
+            "Type 1: If I study hard, I will pass the exam.",
+            "Type 2: If I were you, I would not do that.",
+            "Type 3: If I had known, I would have come."
+        ]
     }
 };
 

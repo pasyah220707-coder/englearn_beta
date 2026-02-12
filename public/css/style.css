@@ -18,20 +18,8 @@
     --hover-bg: #e9ecef;
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
     --formula-bg: #eef7ff;
-}
-
-/* Dark Mode Variables */
-[data-theme="dark"] {
-    --primary-color: #4dabf7; /* Biru yang lebih terang agar kontras di gelap */
-    --primary-hover: #007BFF;
-    --bg-body: #121212;
-    --bg-card: #1e1e1e;
-    --text-main: #e0e0e0;
-    --text-muted: #a0a0a0;
-    --border-color: #333333;
-    --hover-bg: #2c2c2c;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    --formula-bg: rgba(0, 123, 255, 0.15);
+    --correct-bg: #d4edda;
+    --incorrect-bg: #f8d7da;
 }
 
 body {
@@ -325,9 +313,73 @@ body {
 .correct { color: var(--correct-color); font-weight: bold; margin-top: 10px; }
 .incorrect { color: var(--incorrect-color); font-weight: bold; margin-top: 10px; }
 
+/* --- FOOTER STYLES --- */
 .app-footer {
-    text-align: center;
     margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-brand h3 {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+}
+
+.footer-brand p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-credits {
+    text-align: left;
+}
+
+.footer-credits h4 {
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.credits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.credits-list li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.footer-stats {
+    display: flex;
+    gap: 30px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.stat-label {
+    font-size: 0.8rem;
     color: var(--text-muted);
 }
 
@@ -741,6 +793,16 @@ tbody tr:hover {
 
     select {
         max-width: 100%; /* Mencegah dropdown melebar */
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-credits {
+        text-align: center;
+        margin: 15px 0;
     }
 }
 
