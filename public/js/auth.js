@@ -87,6 +87,7 @@ async function updateAuthUI() {
         const userEmail = session.user.email;
         // Ambil username dari metadata, jika tidak ada (akun lama) pakai email
         const userName = session.user.user_metadata.username || userEmail;
+        const userRole = session.user.user_metadata.role; // Ambil role
         const firstLetter = userName.charAt(0).toUpperCase();
         
         // Cek tema saat ini untuk icon awal
@@ -94,11 +95,13 @@ async function updateAuthUI() {
         const themeIcon = isDark ? '☀️' : '🌙';
         const themeText = isDark ? 'Light Mode' : 'Dark Mode';
 
+        const roleBadge = userRole === 'teacher' ? '<span class="nav-role-badge">Guru</span>' : '';
+
         authContainer.innerHTML = `
             <div class="user-dropdown-container">
                 <button id="user-menu-btn" class="user-menu-btn">
                     <div class="nav-avatar">${firstLetter}</div>
-                    <span class="nav-username">${userName}</span>
+                    <span class="nav-username">${userName} ${roleBadge}</span>
                     <span class="dropdown-arrow">▼</span>
                 </button>
                 <div id="user-dropdown-menu" class="user-dropdown-menu">
