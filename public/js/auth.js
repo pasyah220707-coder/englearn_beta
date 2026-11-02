@@ -110,6 +110,7 @@ async function updateAuthUI() {
                         <span style="font-size: 0.8rem; color: #666;">${userEmail}</span>
                     </div>
                     <a href="/profile.html" class="dropdown-item">👤 My Profile</a>
+                    <a href="/conversation.html" class="dropdown-item">🗣️ AI Conversation</a>
                     <a href="/leaderboard.html" class="dropdown-item mobile-only">🏆 Leaderboard</a>
                     <!-- Tombol Tema di dalam Dropdown -->
                     <button id="theme-toggle-dropdown" class="dropdown-item">

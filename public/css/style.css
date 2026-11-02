@@ -920,6 +920,108 @@ tbody tr:hover {
     }
 }
 
+/* --- CONVERSATION / CHAT STYLES --- */
+.chat-container {
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid var(--border-color);
+}
+
+.chat-box {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    background: var(--bg-body);
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.message.user-message { justify-content: flex-end; }
+.message.ai-message { justify-content: flex-start; }
+
+.message-content {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.user-message .message-content {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.ai-message .message-content {
+    background-color: var(--hover-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-bottom-left-radius: 2px;
+}
+
+.chat-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mic-btn {
+    background: var(--bg-card);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mic-btn:hover { background: var(--hover-bg); }
+.mic-btn.recording {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+    animation: pulse 1.5s infinite;
+}
+
+.input-wrapper {
+    flex: 1;
+    display: flex;
+    gap: 5px;
+}
+
+.send-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.status-text {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    min-height: 1.2em;
+}
+
 /* Theme Toggle Button */
 .theme-toggle-btn {
     background: none;

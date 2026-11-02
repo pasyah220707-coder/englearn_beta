@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Conversation Practice - EngLearn</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Navbar Container -->
+    <nav class="main-navbar">
+        <a href="/" class="nav-brand">EngLearn</a>
+        <div id="auth-container" class="nav-right">
+            <!-- Auth buttons injected by auth.js -->
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <div class="app-header">
+            <h1>🗣️ Speaking Practice</h1>
+            <p>Chat with AI to improve your pronunciation and grammar.</p>
+        </div>
+
+        <div class="chat-container">
+            <div id="chat-box" class="chat-box">
+                <div class="message ai-message">
+                    <div class="message-content">
+                        Hi there! I'm your English tutor. What would you like to talk about today?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-controls">
+                <button id="mic-btn" class="mic-btn" title="Hold to Speak / Click to Toggle">
+                    🎤
+                </button>
+                <div class="input-wrapper">
+                    <input type="text" id="text-input" placeholder="Type or speak..." autocomplete="off">
+                    <button id="send-btn" class="send-btn">➤</button>
+                </div>
+            </div>
+            <p id="status-text" class="status-text">Click microphone to start speaking...</p>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/conversation.js"></script>
+</body>
+</html>
