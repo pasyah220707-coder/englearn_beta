@@ -29,6 +29,8 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden; /* Mencegah scroll horizontal berlebih */
     width: 100%;
 }
@@ -238,6 +240,7 @@ body {
     max-width: 700px;
     margin: 100px auto 40px; /* Margin atas untuk memberi ruang pada Navbar */
     padding: 0 20px;
+    flex: 1 0 auto;
 }
 
 .app-header {
@@ -325,18 +328,29 @@ body {
 
 /* --- FOOTER STYLES --- */
 .app-footer {
-    margin-top: 3rem;
-    padding: 2rem 0;
+    width: 100%;
+    margin-top: auto;
+    padding: 2.5rem 20px 2rem;
     border-top: 1px solid var(--border-color);
     background-color: var(--bg-card);
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
+    text-align: left;
+}
+
+.footer-brand {
+    flex: 1;
+    min-width: 200px;
 }
 
 .footer-brand h3 {
@@ -351,6 +365,8 @@ body {
 }
 
 .footer-credits {
+    flex: 1.2;
+    min-width: 240px;
     text-align: left;
 }
 
@@ -370,15 +386,21 @@ body {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 5px;
+    line-height: 1.4;
 }
 
 .footer-stats {
+    flex: 1;
+    min-width: 260px;
     display: flex;
-    gap: 30px;
+    justify-content: flex-end;
+    gap: 25px;
+    flex-wrap: wrap;
 }
 
 .stat-item {
     text-align: center;
+    min-width: 80px;
 }
 
 .stat-number {
@@ -911,12 +933,70 @@ tbody tr:hover {
 
     .footer-content {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .footer-brand,
+    .footer-credits {
         text-align: center;
     }
 
     .footer-credits {
+        margin: 5px 0;
+    }
+
+    .footer-stats {
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        margin: 15px 0;
+        gap: 25px;
+    }
+
+    .footer-brand,
+    .footer-credits {
+        text-align: center;
+    }
+
+    .footer-credits {
+        margin: 5px 0;
+    }
+
+    .footer-stats {
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-footer {
+        padding: 2rem 15px;
+    }
+
+    .footer-stats {
+        gap: 15px;
+    }
+
+    .stat-item {
+        min-width: 70px;
+    }
+
+    .stat-number {
+        font-size: 1.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
     }
 }
 
