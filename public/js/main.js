@@ -1,4 +1,6 @@
-// Data Soal Kuis (Dipindahkan dari backend ke frontend agar bisa berjalan tanpa server API)
+// =============================================
+// DATA SOAL KUIS
+// =============================================
 const QUIZ_DATA = {
     "simple-present": {
         title: "Simple Present Tense",
@@ -197,19 +199,21 @@ const QUIZ_DATA = {
     }
 };
 
-// Variabel Global untuk Kuis
+// =============================================
+// VARIABEL GLOBAL KUIS
+// =============================================
 let currentQuestions = [];
 let currentQuestionIndex = 0;
-let currentDifficulty = 'normal';
-let timerInterval = null;
-let timeLeft = 0;
 let totalScore = 0;
+let currentStreak = 0;     // Jumlah jawaban benar berturut-turut
 let userAnswers = [];
 let quizTopicId = '';
-let isTransitioning = false;
+let quizTitle = '';
 
+// =============================================
+// INISIALISASI
+// =============================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Ambil topik dari URL, contoh: /quiz.html?topic=simple-present
     const params = new URLSearchParams(window.location.search);
     const topicId = params.get('topic');
 
@@ -220,24 +224,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// =============================================
+// LOAD KUIS — LANGSUNG MULAI TANPA PILIH KESULITAN
+// =============================================
 async function loadQuiz(topicId) {
     quizTopicId = topicId;
-    const headerTitle = document.querySelector('.app-header h1');
-    const headerSubtitle = document.querySelector('.app-header p');
-    const loadingText = document.getElementById('loading-text');
 
     try {
-        // Mengambil data soal dari variabel lokal
         const quiz = QUIZ_DATA[topicId];
         if (!quiz) throw new Error('Quiz topic not found.');
-        currentQuestions = quiz.questions;
 
-        headerTitle.textContent = quiz.title;
-        headerSubtitle.textContent = 'Select difficulty to start.';
-        
-        // Sembunyikan loading, tampilkan pilihan kesulitan
-        loadingText.style.display = 'none';
-        document.getElementById('difficulty-selection').style.display = 'block';
+        currentQuestions = quiz.questions;
+        quizTitle = quiz.title;
+
+        document.getElementById('quiz-header-title').textContent = quiz.title;
+        document.getElementById('quiz-header-sub').textContent = 'Answer correctly to build your streak!';
+
+        document.getElementById('loading-text').style.display = 'none';
+
+        // Reset state
+        currentQuestionIndex = 0;
+        totalScore = 0;
+        currentStreak = 0;
+        userAnswers = [];
+
+        document.getElementById('quiz-active').style.display = 'block';
+        showQuestion();
 
     } catch (error) {
         document.getElementById('quiz-container').innerHTML = `<p>Error: ${error.message}. Please try again.</p>`;
@@ -245,35 +257,17 @@ async function loadQuiz(topicId) {
     }
 }
 
-// Fungsi memulai kuis setelah memilih kesulitan
-window.startQuiz = function(difficulty) {
-    currentDifficulty = difficulty;
-    currentQuestionIndex = 0;
-    totalScore = 0;
-    userAnswers = [];
-    
-    document.getElementById('difficulty-selection').style.display = 'none';
-    document.getElementById('quiz-active').style.display = 'block';
-    
-    showQuestion();
-};
-
+// =============================================
+// TAMPILKAN SOAL
+// =============================================
 function showQuestion() {
     const questionArea = document.getElementById('question-area');
     const question = currentQuestions[currentQuestionIndex];
-    
-    // Reset Timer berdasarkan kesulitan
-    if (currentDifficulty === 'easy') timeLeft = 60;
-    else if (currentDifficulty === 'normal') timeLeft = 30;
-    else if (currentDifficulty === 'hard') timeLeft = 10;
 
-    updateTimerUI();
-    startTimer();
+    updateStreakUI();
 
-    // Render Soal
     let optionsHTML = '';
     question.options.forEach(option => {
-        // Menghapus onclick dari label
         optionsHTML += `
             <label>
                 <input type="radio" name="current-answer" value="${option}">
@@ -292,66 +286,62 @@ function showQuestion() {
     `;
 }
 
-function startTimer() {
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerUI();
+// =============================================
+// UPDATE TAMPILAN STREAK & MULTIPLIER
+// =============================================
+function updateStreakUI() {
+    document.getElementById('current-streak').textContent = currentStreak;
+    document.getElementById('current-score').textContent = totalScore;
 
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            handleAnswer(null); // Waktu habis = salah
-        }
-    }, 1000);
-}
-
-function updateTimerUI() {
-    const timeEl = document.getElementById('time-left');
-    timeEl.textContent = timeLeft;
-    if (timeLeft <= 5) timeEl.classList.add('timer-warning');
-    else timeEl.classList.remove('timer-warning');
-}
-
-window.nextQuestion = function() {
-    let selectedAnswer = null;
-    const selectedRadio = document.querySelector('input[name="current-answer"]:checked');
-    if (selectedRadio) {
-        selectedAnswer = selectedRadio.value;
+    const multiplierBadge = document.getElementById('multiplier-badge');
+    if (currentStreak >= 2) {
+        const multiplier = 1 + (currentStreak - 1) * 0.25;
+        multiplierBadge.textContent = `x${multiplier.toFixed(2)}`;
+        multiplierBadge.style.display = 'inline-block';
+    } else {
+        multiplierBadge.style.display = 'none';
     }
-     clearInterval(timerInterval);
-     handleAnswer(selectedAnswer);
- };
+}
 
-/*window.selectAnswer = function(answer) {
-   if (isTransitioning) return;
-   isTransitioning = true;
-   clearInterval(timerInterval);
-   handleAnswer(answer);
-};*/
-async function handleAnswer(answer) {
+// =============================================
+// NEXT SOAL
+// =============================================
+window.nextQuestion = function() {
+    const selectedRadio = document.querySelector('input[name="current-answer"]:checked');
+    const selectedAnswer = selectedRadio ? selectedRadio.value : null;
+    handleAnswer(selectedAnswer);
+};
+
+// =============================================
+// PROSES JAWABAN + HITUNG SKOR STREAK
+// =============================================
+function handleAnswer(answer) {
     const question = currentQuestions[currentQuestionIndex];
-    
-    // Simpan jawaban user
+    const isCorrect = answer === question.correctAnswer;
+
+    // Hitung multiplier berdasarkan streak SEBELUM soal ini
+    // Streak 1 = x1.00, Streak 2 = x1.25, Streak 3 = x1.50, dst.
+    let multiplier = 1;
+    if (currentStreak >= 1) {
+        multiplier = 1 + currentStreak * 0.25;
+    }
+
+    let pointsEarned = 0;
+    if (isCorrect) {
+        pointsEarned = Math.round(100 * multiplier);
+        totalScore += pointsEarned;
+        currentStreak++;
+    } else {
+        currentStreak = 0; // Reset streak jika salah
+    }
+
     userAnswers.push({
         questionId: question.id,
-        answer: answer
+        answer: answer,
+        isCorrect: isCorrect,
+        pointsEarned: pointsEarned
     });
 
-    // Hitung Skor (Hanya jika jawaban ada, validasi benar/salah dilakukan di backend nanti untuk hasil akhir,
-    // tapi untuk skor real-time kita butuh logika sederhana atau tunggu backend.
-    // Agar aman dan cepat, kita hitung skor nanti setelah validasi backend, 
-    // TAPI user minta "semakin cepat menjawab semakin tinggi score".
-    // Kita akan hitung potensi skor berdasarkan waktu di sini, lalu validasi di akhir.
-    
-    // Max poin per soal = 100.
-    // Rumus: (Sisa Waktu / Total Waktu) * 100
-    let maxTime = currentDifficulty === 'easy' ? 60 : currentDifficulty === 'normal' ? 30 : 10;
-    let timeScore = Math.round((timeLeft / maxTime) * 100);
-    
-    // Kita simpan timeScore ini sementara, nanti dikalikan 1 jika benar, 0 jika salah
-    userAnswers[userAnswers.length - 1].potentialScore = timeScore;
-
-    // Lanjut ke soal berikutnya
     currentQuestionIndex++;
     if (currentQuestionIndex < currentQuestions.length) {
         showQuestion();
@@ -360,10 +350,12 @@ async function handleAnswer(answer) {
     }
 }
 
+// =============================================
+// SELESAI KUIS
+// =============================================
 async function finishQuiz() {
     document.getElementById('quiz-active').innerHTML = '<p class="loading">Calculating results...</p>';
 
-    // Penilaian Lokal (Frontend Grading)
     const quiz = QUIZ_DATA[quizTopicId];
     const results = userAnswers.map(ua => {
         const q = quiz.questions.find(q => q.id === ua.questionId);
@@ -372,25 +364,15 @@ async function finishQuiz() {
             text: q.text,
             userAnswer: ua.answer,
             correctAnswer: q.correctAnswer,
-            isCorrect: ua.answer === q.correctAnswer,
-            options: q.options
+            isCorrect: ua.isCorrect,
+            options: q.options,
+            pointsEarned: ua.pointsEarned
         };
     });
 
-    // Hitung Total Skor Akhir (Poin)
-    let finalScore = 0;
-    results.forEach((res, idx) => {
-        if (res.isCorrect) {
-            finalScore += userAnswers[idx].potentialScore || 0;
-        }
-    });
+    const correctCount = results.filter(r => r.isCorrect).length;
 
-    const resultData = {
-        results: results,
-        title: quiz.title
-    };
-
-    // --- SIMPAN KE SUPABASE ---
+    // Simpan ke Supabase jika login
     if (window.supabaseClient) {
         const { data: { session } } = await window.supabaseClient.auth.getSession();
         if (session) {
@@ -400,22 +382,23 @@ async function finishQuiz() {
                 user_id: user.id,
                 username: username,
                 topic_id: quizTopicId,
-                score: finalScore, // Skor Poin
-                total: currentQuestions.length * 100, // Max Poin (100 per soal)
-                difficulty: currentDifficulty // Kolom baru
+                score: totalScore,
+                total: currentQuestions.length * 100,
+                difficulty: 'standard'
             });
             checkAndAwardBadges(user.id);
         }
     }
 
-    // Simpan hasil untuk halaman result
+    // Simpan ke sessionStorage untuk halaman results
     const finalResult = {
-        ...resultData,
-        score: finalScore, // Override score backend (jumlah benar) dengan skor poin
-        total: currentQuestions.length * 100,
-        difficulty: currentDifficulty
+        results: results,
+        title: quiz.title,
+        score: totalScore,
+        correctCount: correctCount,
+        totalQuestions: currentQuestions.length
     };
-    
+
     sessionStorage.setItem('quizResult', JSON.stringify(finalResult));
     window.location.href = '/results.html';
 }

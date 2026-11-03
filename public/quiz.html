@@ -23,26 +23,18 @@
 
     <div class="app-container">
         <header class="app-header">
-            <h1>EngLearn Quiz</h1>
-            <p>Test your grammar skills!</p>
+            <h1 id="quiz-header-title">EngLearn Quiz</h1>
+            <p id="quiz-header-sub">Test your grammar skills!</p>
         </header>
         
         <main id="quiz-container">
-            <!-- 1. Layar Pilih Kesulitan -->
-            <div id="difficulty-selection" style="display: none; text-align: center;">
-                <h2>Select Difficulty</h2>
-                <p>Choose your challenge level:</p>
-                <div class="difficulty-grid">
-                    <button class="diff-btn easy" onclick="startQuiz('easy')">Easy (60s)</button>
-                    <button class="diff-btn normal" onclick="startQuiz('normal')">Normal (30s)</button>
-                    <button class="diff-btn hard" onclick="startQuiz('hard')">Hard (10s)</button>
-                </div>
-            </div>
-
-            <!-- 2. Layar Kuis Aktif -->
+            <!-- Layar Kuis Aktif -->
             <div id="quiz-active" style="display: none;">
                 <div class="quiz-info-bar">
-                    <div id="timer-display">Time: <span id="time-left">0</span>s</div>
+                    <div id="streak-display">
+                        🔥 Streak: <span id="current-streak">0</span>
+                        <span id="multiplier-badge" class="multiplier-badge" style="display:none;"></span>
+                    </div>
                     <div id="score-display">Score: <span id="current-score">0</span></div>
                 </div>
                 <div id="question-area"></div>
@@ -51,7 +43,6 @@
             <!-- Loading -->
             <p id="loading-text" class="loading">Loading questions...</p>
         </main>
-
     </div>
 
     <footer class="app-footer">

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results-container');
     const quizTitleElement = document.getElementById('quiz-title');
 
-    // Ambil data hasil dari sessionStorage
     const resultData = sessionStorage.getItem('quizResult');
 
     if (!resultData) {
@@ -10,19 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Hapus data dari session storage setelah diambil agar tidak muncul lagi jika halaman di-refresh
     sessionStorage.removeItem('quizResult');
 
-    const { score, total, results, title, difficulty } = JSON.parse(resultData);
+    const { score, correctCount, totalQuestions, results, title } = JSON.parse(resultData);
 
     quizTitleElement.textContent = `Results: ${title}`;
-    resultsContainer.innerHTML = ''; // Hapus loading text
+    resultsContainer.innerHTML = '';
 
-    // Tampilkan skor
+    // Tampilkan ringkasan skor
     const scoreElement = document.createElement('div');
     scoreElement.className = 'score-summary';
-    const diffLabel = difficulty ? difficulty.charAt(0).toUpperCase() + difficulty.slice(1) : 'Standard';
-    scoreElement.innerHTML = `<h2>Score: ${score} / ${total}</h2><p>Difficulty: <strong>${diffLabel}</strong></p>`;
+    scoreElement.innerHTML = `
+        <h2>Total Score: ${score}</h2>
+        <p>Correct Answers: <strong>${correctCount} / ${totalQuestions}</strong></p>
+    `;
     resultsContainer.appendChild(scoreElement);
 
     // Tampilkan ulasan setiap pertanyaan
@@ -41,10 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
             optionsHTML += `<li class="${className}">${option}</li>`;
         });
 
+        const pointsInfo = result.isCorrect
+            ? `<p class="points-earned">+${result.pointsEarned} points</p>`
+            : '';
+
         card.innerHTML = `
             <h3>${result.text}</h3>
             <ul class="result-options">${optionsHTML}</ul>
             ${!result.isCorrect ? `<p class="correct-answer-text"><strong>Correct Answer:</strong> ${result.correctAnswer}</p>` : ''}
+            ${pointsInfo}
         `;
 
         resultsContainer.appendChild(card);

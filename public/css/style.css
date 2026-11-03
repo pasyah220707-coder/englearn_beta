@@ -1117,3 +1117,43 @@ tbody tr:hover {
 .theme-toggle-btn:hover {
     background-color: var(--hover-bg);
 }
+/* --- QUIZ STREAK SYSTEM (added) --- */
+#streak-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+}
+
+#current-streak {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.multiplier-badge {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.8); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.points-earned {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+.quiz-info-bar {
+    align-items: center;
+}
