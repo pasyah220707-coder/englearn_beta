@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const backButton = document.createElement('a');
-    backButton.href = '/kelas11.html';
+    backButton.href = '/';
     backButton.className = 'back-to-topics-btn';
     backButton.textContent = 'Back to Topics';
     resultsContainer.appendChild(backButton);
